@@ -1,0 +1,13 @@
+{% extends 'company_base.html.twig' %}
+
+{% block content %}
+    <h3>Statuses for "{{ board.name }}"</h3>
+    {{ 'prodly.form.status.content.create_description'|trans({}, 'form') }}
+    {% for status in board.statuses %}
+        {{ status.name }} - {{ status.privacy }}
+        <a href="{{ path('prony_frontend_company_status_update', {'board_slug': board.slug, 'slug': status.slug}) }}">Update</a><br>
+        <a href="{{ path('prony_frontend_company_status_delete', {'board_slug': board.slug, 'slug': status.slug}) }}">Delete</a><br>
+    {% endfor %}
+    <a href="{{ path('prony_frontend_company_status_create', {'board_slug': board.slug}) }}">Create status</a>
+
+{% endblock %}

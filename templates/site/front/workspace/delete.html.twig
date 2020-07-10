@@ -1,0 +1,17 @@
+{% extends 'site/front/base_client.html.twig' %}
+
+{% block content %}
+    <h1>
+        {{ 'prony.twig.workspace.confirm_deleting'|trans({}, 'twig') }}
+    </h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'prony.form.workspace.delete'|trans({}, 'form') }}" formnovalidate />
+        <a href="{{ path('prony_site_front_workspace_list') }}" class="cancel">
+            {{ 'prony.form.workspace.cancel'|trans({}, 'form') }}
+        </a>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

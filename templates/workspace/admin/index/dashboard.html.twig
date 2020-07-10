@@ -1,0 +1,10 @@
+{% extends 'workspace/admin/base.html.twig' %}
+
+{% block content %}
+    <h3>Boards</h3>
+    {% for board in boards %}
+        {{ board.name }} -  <a href="{{  path('prony_workspace_admin_board_update', {'slug': board.slug}) }}">Update</a><br>
+    {% endfor %}
+    <a href="{{ path('prony_workspace_admin_board_create') }}">Create board</a>
+
+{% endblock %}

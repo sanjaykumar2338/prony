@@ -1,0 +1,53 @@
+easy_admin:
+  entities:
+    Product:
+      class: Talav\StripeBundle\Entity\Product
+      controller: Talav\StripeAdminBundle\Controller\Admin\ProductController
+      list:
+        fields:
+        - id
+        - name
+        - active
+        - livemode
+        - { property: 'createdDateTime', type: date, format: 'n/j/Y H:i', label: 'Created at' }
+        - { property: 'updatedDateTime', type: date, format: 'n/j/Y H:i', label: 'Updated at' }
+      form:
+        fields:
+          - { property: 'id', type_options: { required: false } }
+          - name
+          - active
+          - metadata
+      edit:
+        fields:
+          - '-id'
+    Plan:
+      class: Talav\StripeBundle\Entity\Plan
+      controller: Talav\StripeAdminBundle\Controller\Admin\PlanController
+      list:
+        fields:
+          - id
+          - nickname
+          - active
+          - { property: 'createdDateTime', type: date, format: 'n/j/Y H:i', label: 'Created at' }
+        filters: ['product']
+      new:
+        fields:
+          - { property: 'product', type_options: { by_reference: false, required: true } }
+          - { property: 'id', type_options: { required: false } }
+          - { property: 'nickname', help: 'A brief description of the plan, hidden from customers.'}
+          - { property: 'amount', type_options: { required: true }, help: 'A positive integer in cents (or 0 for a free plan) representing how much to charge on a recurring basis.'}
+          - { property: 'currency', type: '\App\Form\Type\CurrencyType' }
+          - { property: 'intervalCount', type_options: { required: true }}
+          - { property: 'interval', type: '\App\Form\Type\PlanIntervalType'}
+          - { property: 'trialPeriodDays', help: 'Subscriptions to this plan will automatically start with a free trial of this length.'}
+          - active
+          - metadata
+      edit:
+        fields:
+          - { property: 'nickname', help: 'A brief description of the plan, hidden from customers.'}
+          - { property: 'trialPeriodDays', help: 'Subscriptions to this plan will automatically start with a free trial of this length.'}
+          - active
+          - metadata
+  site_name: 'Talav SaaS Template Admin'
+  design:
+    brand_color: '#1ABC9C'

@@ -1,0 +1,60 @@
+prony:
+  form:
+    company:
+      color: Header color
+      submit: Submit
+    board:
+      name: Board name
+      privacy: Privacy
+      submit: Submit
+      content:
+        create_board: Create a new board
+        create_description: A board is a place where people can post and vote on ideas for a specific topic.
+    tag:
+      name: Tag name
+      color: Color
+      privacy: Privacy
+      submit: Submit
+    status:
+      name: Status name
+      is_voteable: Votes allowed?
+      is_voteable_help: Defines if votes are allowed for posts in this status
+      privacy: Privacy
+      privacy_help: Defines if regular users can see posts with this status.
+      is_road_map: Show status on the roadmap?
+      is_road_map_help: This flag indicates if roadmap should have a separate column for the status
+      submit: Submit
+      content:
+        create_board: Create a new board
+        create_description: Statuses define columns on your dashboard.
+    privacy:
+      choice:
+        private: Private
+        public: Public
+    language:
+      choice:
+        en: English
+        es: Spain
+        de: German
+        fr: French
+        pt: Portuguese
+    registration:
+      first_name: First name
+      last_name: Last name
+      error:
+        last_name_required: Please enter your last name
+        first_name_required: Please enter your first name
+    workspace:
+      table:
+        name: 'Name'
+        domain: 'Domain'
+        links: 'Links'
+      list: 'Workspace list'
+      add: 'Add new workspace'
+      edit: 'Edit workspace'
+      delete: 'Delete'
+      open: 'Open'
+      name: 'Name'
+      subdomain: 'Subdomain'
+      submit: 'Save'
+      cancel: 'Cancel'

@@ -1,0 +1,75 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $currentDomain: '%domain%'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    Prony\:
+        resource: '../src/Prony/*'
+        exclude: '../src/Prony/{DependencyInjection,Entity,Migrations,Tests,Resources,Serializer,Menu,Manager,Repository,Request}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    Prony\Controller\:
+        resource: '../src/Prony/Controller'
+        tags: ['controller.service_arguments']
+
+    Prony\Controller\Site\Front\WorkspaceController:
+        arguments:
+            - '@app.manager.workspace'
+            - {domain: '%domain%'}
+        tags: ['controller.service_arguments']
+
+    Prony\EventListener\CurrentWorkspaceListener:
+        arguments:
+            - '%domain%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, priority: 25 }
+    Prony\EventListener\MediaPostLoadEventListener:
+        tags:
+            - { name: 'doctrine.event_listener', event: 'postLoad'}
+
+    Prony\Api\Serializer\Normalizer\BoardNormalizer:
+        decorates: 'api_platform.serializer.normalizer.item'
+        arguments:
+            $decorated: '@Prony\Api\Serializer\Normalizer\BoardNormalizer.inner'
+    Prony\Api\Serializer\Normalizer\TagNormalizer:
+        decorates: 'api_platform.serializer.normalizer.item'
+        arguments:
+            $decorated: '@Prony\Api\Serializer\Normalizer\TagNormalizer.inner'
+    Prony\Api\Serializer\Normalizer\StatusNormalizer:
+        decorates: 'api_platform.serializer.normalizer.item'
+        arguments:
+            $decorated: '@Prony\Api\Serializer\Normalizer\StatusNormalizer.inner'
+
+    Prony\Menu\BoardMenuBuilder:
+        arguments:
+            $boardManager: '@app.manager.board'
+        tags:
+            - { name: knp_menu.menu_builder, method: createBoardMenu, alias: board_menu }
+
+    Prony\Request\ParamConverter\WorkspaceConverter:
+        class: Prony\Request\ParamConverter\WorkspaceConverter
+        tags:
+            - { name: request.param_converter, priority: -2, converter: workspace_converter }
+    Prony\EventListener\WorkspaceCreationListener:
+        tags:
+            - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'Prony\Entity\Workspace'}
+    Prony\Search\EventListener\PostSubscriber:
+        arguments:
+            - '@Prony\Search\Document\PostDoc'
+            - '%prony.elasticsearch.enabled%'
+        tags:
+            - { name: 'doctrine.orm.event_subscriber'}
+    Prony\Search\Finder\PostFinder:
+        arguments:
+            $indexService: '@Prony\Search\Document\PostDoc'

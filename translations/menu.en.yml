@@ -1,0 +1,9 @@
+prony:
+  menu:
+    company:
+      settings: Settings
+    board:
+      general: General
+      tags: Tags
+      statuses: Statuses
+      post_form: Create post form

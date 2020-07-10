@@ -1,0 +1,11 @@
+{% extends 'site/front/base.html.twig' %}
+
+{% block content %}
+    Left menu
+    <ul>
+        <li><a href="{{ path('prony_site_front_workspace_list') }}">Workspaces</a></li>
+    </ul>
+    {% block content_right %}
+
+    {% endblock %}
+{% endblock %}

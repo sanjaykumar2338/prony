@@ -1,0 +1,18 @@
+prony:
+  flash:
+    company:
+      update: Company settings have been updated succesefully
+    board:
+      create: Board has been created succesefully
+      update: Board has been updated succesefully
+    tag:
+      create: Tag has been created succesefully
+      update: Tag has been updated succesefully
+      delete: Tag has been deleted succesefully
+    status:
+      create: Status has been created succesefully
+      update: Status has been updated succesefully
+      delete: Status has been deleted succesefully
+    workspace:
+      update: Workspace has been successfully updated
+      delete: Workspace has been deleted

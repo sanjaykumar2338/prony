@@ -1,0 +1,18 @@
+prony:
+  post:
+    extra:
+      format: Extra post data should be in a key-value format.
+  media:
+    file:
+      type: Incorrect image type.
+  registration:
+    last_name:
+      required: Please enter your last name
+    first_name:
+      required: Please enter your first name
+  workspace:
+    delete:
+      wrong_name: Please enter correct workspace name
+    subdomain:
+      wrong_format: 'Subdomain should only include letters and numbers'
+      taken: 'This subdomain name is already taken'

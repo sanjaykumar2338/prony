@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Workspace admin area{% endblock %}</title>
+</head>
+<body>
+
+<div id="content">
+    {% block body %}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message | trans({}, 'flash')}}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message | trans({}, 'flash')}}
+            </div>
+        {% endfor %}
+        <h1>Company functionality</h1>
+
+        {{ knp_menu_render('board_menu') }}
+
+        {% block content %}{% endblock %}
+    {% endblock %}
+</div>
+</body>
+</html>

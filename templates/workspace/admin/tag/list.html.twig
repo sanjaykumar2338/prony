@@ -1,0 +1,12 @@
+{% extends 'company_base.html.twig' %}
+
+{% block content %}
+    <h3>Tags for "{{ board.name }}"</h3>
+    {% for tag in board.tags %}
+        {{ tag.name }} - {{ tag.color }} - {{ tag.privacy }}
+        <a href="{{ path('prony_frontend_company_tag_update', {'board_slug': board.slug, 'slug': tag.slug}) }}">Update</a><br>
+        <a href="{{ path('prony_frontend_company_tag_delete', {'board_slug': board.slug, 'slug': tag.slug}) }}">Delete</a><br>
+    {% endfor %}
+    <a href="{{ path('prony_frontend_company_tag_create', {'board_slug': board.slug}) }}">Create tag</a>
+
+{% endblock %}

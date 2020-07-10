@@ -1,0 +1,14 @@
+prony:
+  entity:
+    workspace:
+      road_map:
+        title: Mapa vial
+      board_list:
+        title: Dar opinion
+    status:
+      open: Abierto
+      under_review: Bajo revisión
+      planned: Planificado
+      in_progress: En progreso
+      complete: Completo
+      closed: Cerrado

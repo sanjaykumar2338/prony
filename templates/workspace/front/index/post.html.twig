@@ -1,0 +1,33 @@
+{% extends 'site/front/base.html.twig' %}
+
+{% macro tree(comments) %}
+    {% import _self as macros %}
+    {% for comment in comments %}
+        <li>
+            <p>{{ comment.createdBy }}</p>
+            <p>{{ comment.comment }}</p>
+            <p>{{ comment.createdAt|date("m/d/Y") }}</p>
+            {% if comment.children %}
+                <ul>
+                    {{ macros.tree(comment.children) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+{% block content %}
+    <h1>{{ board.name }}</h1>
+    {{ post.status.name }}
+    <p>{{ post.title }}</p>
+    <p>{{ post.voteCount }}</p>
+    <p>{{ post.createdAt|date("m/d/Y") }} {{ post.createdBy.firstName }} </p>
+    {% if post.status.isRoadMap() %}
+        {{ post.status.name }} {{ post.status.color }}
+    {% endif %}
+
+    <ul>
+        {{ _self.tree(comments) }}
+    </ul>
+
+{% endblock %}

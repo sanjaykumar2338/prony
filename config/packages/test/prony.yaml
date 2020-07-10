@@ -1,0 +1,3 @@
+prony:
+  elasticsearch:
+    enabled: false

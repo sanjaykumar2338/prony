@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Prony main website{% endblock %}</title>
+</head>
+<body>
+<div id="header_left">
+    <ul>
+        <li><a href="{{ path('prony_site_front_index_index') }}">Home</a></li>
+        <li><a href="{{ path('prony_site_front_product_index') }}">Product</a></li>
+        <li><a href="{{ path('prony_site_front_product_features') }}">Features</a></li>
+        <li><a href="{{ path('prony_site_front_index_pricing') }}">Pricing</a></li>
+    </ul>
+</div>
+
+<div id="header_right">
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <ul>
+            <li>
+                <a href="{{ path('talav_user_logout') }}">
+                    {{ 'talav.layout.logout'|trans({}, 'TalavUserBundle') }}
+                </a>
+            </li>
+            <li><a href="{{ path('prony_site_front_workspace_list') }}">Workspaces</a></li>
+        </ul>
+    {% else %}
+        <ul>
+            <li>
+                <a href="{{ path('talav_user_login') }}">{{ 'talav.layout.login'|trans({}, 'TalavUserBundle') }}</a>
+            </li>
+            <li><a href="{{ path('talav_user_register') }}">Register</a></li>
+        </ul>
+    {% endif %}
+</div>
+
+<div id="content">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message|trans({}, 'flash') }}
+        </div>
+    {% endfor %}
+
+    {% block content %}{% endblock %}
+    {% block talav_user_content %}{% endblock talav_user_content %}
+</div>
+<div id="footer2">
+    <ul>
+        <li><a href="{{ path('prony_site_front_product_index') }}">Product</a></li>
+        <li><a href="{{ path('prony_site_front_product_features') }}">Features</a></li>
+        <li><a href="{{ path('prony_site_front_product_integrations') }}">Integrations</a></li>
+    </ul>
+    <ul>
+        <li><a href="{{ path('prony_site_front_company_about') }}">About</a></li>
+        <li><a href="{{ path('prony_site_front_company_why') }}">Why Prony?</a></li>
+    </ul>
+</div>
+<div id="footer1">
+    <ul>
+        <li><a href="{{ path('prony_site_front_index_terms') }}">Terms</a></li>
+        <li><a href="{{ path('prony_site_front_index_privacy') }}">Policy</a></li>
+    </ul>
+</div>
+</body>
+</html>

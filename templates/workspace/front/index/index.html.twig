@@ -1,0 +1,20 @@
+{% extends 'site/front/base.html.twig' %}
+
+{% block content %}
+    {{ workspace.boardListTitle }}
+    {% for board in workspace.boards %}
+        <p>
+            <a href="{{ path('prony_workspace_front_index_board', {'slug': board.slug}) }}">{{ board.name }} ({{ board.posts.count }})</a>
+        </p>
+    {% endfor %}
+
+    {% if workspace.showRoadMap %}
+        {{ workspace.roadMapTitle }}
+        {% for status in workspace.getRoadMapStatuses %}
+            {{ status.name }}
+            {% for post in workspace.getRoadMapPosts(status) %}
+                {{ post.title }}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

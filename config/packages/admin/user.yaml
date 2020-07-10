@@ -1,0 +1,19 @@
+easy_admin:
+  entities:
+    User:
+      class: Talav\UserBundle\Entity\User
+      disabled_actions: ['delete']
+      list:
+        fields:
+          - id
+          - username
+          - email
+          - enabled
+          - createdAt
+      form:
+        fields:
+          - { property: 'id', type_options: { required: false } }
+          - username
+      edit:
+        fields:
+          - '-id'

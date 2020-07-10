@@ -1,0 +1,64 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Prony\Entity\Workspace" table="prony_workspace">
+        <id name="id" column="id" type="uuid">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Ramsey\Uuid\Doctrine\UuidGenerator"/>
+        </id>
+
+        <field name="name" column="name" />
+        <field name="color" column="color" length="7" />
+        <field name="domain" column="domain" nullable="true" />
+        <field name="subdomain" column="subdomain" nullable="true" />
+        <field name="showRoadMap" column="show_road_map" type="boolean" />
+        <field name="boardListTitle" column="board_list_title" />
+        <field name="roadMapTitle" column="road_map_title" />
+        <field name="language" column="language" length="2" />
+        <field name="isIndexed" column="is_indexed" type="boolean" />
+
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
+
+        <many-to-one field="updatedBy" target-entity="Talav\Component\User\Model\UserInterface">
+            <join-column name="updated_by_user_id" />
+            <gedmo:blameable on="update"/>
+        </many-to-one>
+        <many-to-one field="createdBy" target-entity="Talav\Component\User\Model\UserInterface">
+            <join-column name="created_by_user_id" />
+            <gedmo:blameable on="create"/>
+        </many-to-one>
+
+        <one-to-many field="boards" target-entity="Prony\Entity\Board" mapped-by="workspace">
+            <cascade>
+                <cascade-all />
+            </cascade>
+            <order-by>
+                <order-by-field name="position" direction="ASC"/>
+            </order-by>
+        </one-to-many>
+
+        <one-to-many field="statuses" target-entity="Prony\Entity\Status" mapped-by="workspace">
+            <cascade>
+                <cascade-all />
+            </cascade>
+            <order-by>
+                <order-by-field name="position" direction="ASC"/>
+            </order-by>
+        </one-to-many>
+        <one-to-many field="tags" target-entity="Prony\Entity\Tag" mapped-by="workspace">
+            <cascade>
+                <cascade-all />
+            </cascade>
+            <order-by>
+                <order-by-field name="name" direction="ASC"/>
+            </order-by>
+        </one-to-many>
+
+        <unique-constraints>
+            <unique-constraint columns="subdomain"/>
+        </unique-constraints>
+    </entity>
+</doctrine-mapping>

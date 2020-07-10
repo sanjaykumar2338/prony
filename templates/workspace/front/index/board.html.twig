@@ -1,0 +1,13 @@
+{% extends 'site/front/base.html.twig' %}
+
+{% block content %}
+    <h1>{{ board.name }}</h1>
+    {% for post in posts %}
+        <a href="{{ path('prony_workspace_front_index_post', {'slug': board.slug, 'post_slug': post.slug}) }}"><b>{{ post.title }}</b></a>
+        <p>{{ post.createdAt|date("m/d/Y") }} {{ post.createdBy.firstName }} </p>
+        {% if post.status.isRoadMap() %}
+            {{ post.status.name }} {{ post.status.color }}
+        {% endif %}
+        <p>{{ post.description|u.truncate(100) }}</p>
+    {% endfor %}
+{% endblock %}

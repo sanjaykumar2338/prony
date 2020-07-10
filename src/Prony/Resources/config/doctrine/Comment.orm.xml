@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+    <entity name="Prony\Entity\Comment" table="prony_comment">
+        <id name="id" column="id" type="uuid">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Ramsey\Uuid\Doctrine\UuidGenerator"/>
+        </id>
+
+        <field name="comment" type="text" />
+        <field name="left" column="lft" type="integer">
+            <gedmo:tree-left/>
+        </field>
+        <field name="right" column="rgt" type="integer">
+            <gedmo:tree-right/>
+        </field>
+        <field name="level" column="lvl" type="integer">
+            <gedmo:tree-level/>
+        </field>
+
+        <many-to-one field="root" target-entity="Prony\Entity\Comment">
+            <join-column name="tree_root" referenced-column-name="id" on-delete="CASCADE"/>
+            <gedmo:tree-root/>
+        </many-to-one>
+
+        <many-to-one field="parent" target-entity="Prony\Entity\Comment" inversed-by="children">
+            <join-column name="parent_id" referenced-column-name="id" on-delete="CASCADE"/>
+            <gedmo:tree-parent/>
+        </many-to-one>
+
+        <one-to-many field="children" target-entity="Prony\Entity\Comment" mapped-by="parent">
+            <order-by>
+                <order-by-field name="left" direction="ASC" />
+            </order-by>
+        </one-to-many>
+
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
+        <many-to-one field="updatedBy" target-entity="Talav\Component\User\Model\UserInterface">
+            <join-column name="updated_by_user_id" />
+            <gedmo:blameable on="update"/>
+        </many-to-one>
+        <many-to-one field="createdBy" target-entity="Talav\Component\User\Model\UserInterface">
+            <join-column name="created_by_user_id" />
+            <gedmo:blameable on="create"/>
+        </many-to-one>
+
+        <gedmo:tree type="nested"/>
+    </entity>
+</doctrine-mapping>

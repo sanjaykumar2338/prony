@@ -1,0 +1,57 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Prony\Entity\Post" table="prony_post">
+        <id name="id" column="id" type="uuid">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Ramsey\Uuid\Doctrine\UuidGenerator"/>
+        </id>
+        <field name="title" column="title" type="string" />
+        <field name="description" column="description" type="text" />
+        <field name="extra" column="extra" type="json" />
+        <field name="score" column="score" type="decimal" length="8" precision="4" />
+        <field name="voteCount" column="vote_count" type="integer" />
+        <field name="commentCount" column="comment_count" type="integer" />
+
+        <field name="slug" column="slug">
+            <gedmo:slug fields="title" updatable="false"/>
+        </field>
+
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
+        <many-to-one field="updatedBy" target-entity="Talav\Component\User\Model\UserInterface">
+            <join-column name="updated_by_user_id" />
+            <gedmo:blameable on="update"/>
+        </many-to-one>
+        <many-to-one field="createdBy" target-entity="Talav\Component\User\Model\UserInterface">
+            <join-column name="created_by_user_id" />
+            <gedmo:blameable on="create"/>
+        </many-to-one>
+        <many-to-one field="statusChangedBy" target-entity="Talav\Component\User\Model\UserInterface">
+            <join-column name="status_changed_by_user_id" />
+            <gedmo:blameable on="change" field="status"/>
+        </many-to-one>
+
+        <one-to-many field="votes" target-entity="Prony\Entity\Vote" mapped-by="post">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
+        <many-to-one field="board" target-entity="Prony\Entity\Board" inversed-by="posts">
+            <join-column name="board_id" />
+        </many-to-one>
+        <many-to-one field="status" target-entity="Prony\Entity\Status">
+            <join-column name="status_id" />
+        </many-to-one>
+        <one-to-one field="rootComment" target-entity="Prony\Entity\Comment">
+            <join-column name="root_comment_id" />
+        </one-to-one>
+
+        <unique-constraints>
+            <unique-constraint columns="slug,board_id"/>
+        </unique-constraints>
+
+    </entity>
+</doctrine-mapping>

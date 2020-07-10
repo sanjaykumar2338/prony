@@ -1,0 +1,41 @@
+doctrine:
+    dbal:
+        # configure these for your database server
+        driver: 'pdo_mysql'
+        server_version: '5.7'
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+
+        url: '%env(resolve:DATABASE_URL)%'
+        types:
+            Privacy:  Prony\Doctrine\Enum\PrivacyEnum
+            Language:  Prony\Doctrine\Enum\LanguageEnum
+#            ResultCheck:  Talav\StripeBundle\Enum\ResultCheck
+#            CardBrand:  Talav\StripeBundle\Enum\CardBrand
+#            CardFunding:  Talav\StripeBundle\Enum\CardFunding
+#            ChargeStatus:  Talav\StripeBundle\Enum\ChargeStatus
+#            PlanInterval:  Talav\StripeBundle\Enum\PlanInterval
+#            SubscriptionStatus:  Talav\StripeBundle\Enum\SubscriptionStatus
+#            RefundFailureReason:  Talav\StripeBundle\Enum\RefundFailureReason
+#            RefundReason:  Talav\StripeBundle\Enum\RefundReason
+#            RefundStatus:  Talav\StripeBundle\Enum\RefundStatus
+#            CouponDuration:  Talav\StripeBundle\Enum\CouponDuration
+#            InvoiceStatus:  Talav\StripeBundle\Enum\InvoiceStatus
+#            ProductType:  Talav\StripeBundle\Enum\ProductType
+#            Currency:  Talav\StripeBundle\Enum\Currency
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        dql:
+            string_functions:
+                field: DoctrineExtensions\Query\Mysql\Field
+        mappings:
+            TalavUserBundle: ~
+            Prony:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Prony/Resources/config/doctrine'
+                prefix: 'Prony\Entity'
+                alias: Prony

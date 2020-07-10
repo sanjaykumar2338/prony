@@ -1,0 +1,14 @@
+prony:
+  entity:
+    workspace:
+      road_map:
+        title: Roadmap
+      board_list:
+        title: Give Feedback
+    status:
+      open: Open
+      under_review: Under Review
+      planned: Planned
+      in_progress: In Progress
+      complete: Complete
+      closed: Closed

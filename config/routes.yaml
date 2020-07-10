@@ -1,0 +1,26 @@
+Prony:
+  resource: '../src/Prony/Controller/'
+  type:     annotation
+
+app_annotations:
+  # loads routes from the PHP annotations of the controllers found in that directory
+  resource: '@TalavUserBundle/Controller'
+  type:     annotation
+
+facebook_login:
+  path: /social-login/check-facebook
+
+github_login:
+  path: /social-login/check-github
+
+hwi_oauth_redirect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+  prefix:   /connect
+
+hwi_oauth_connect:
+  resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+  prefix:   /connect
+
+hwi_oauth_login:
+  resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+  prefix:   /login

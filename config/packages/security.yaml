@@ -1,0 +1,46 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        login_form:
+            id: talav.user.provider.login
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            guard:
+                provider: login_form
+                authenticators:
+                    - Talav\UserBundle\Security\LoginFormAuthenticator
+            logout:
+                path: talav_user_logout
+                target: talav_user_login
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 2592000
+            oauth:
+                resource_owners:
+                    facebook: "/social-login/check-facebook"
+                ## Provide the original login path of your application
+                ## and the failure route when the authentication fails.
+                login_path:     /login
+                failure_path:   /login
+                oauth_user_provider:
+                    service: talav.user.provider.oath
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+    encoders:
+        Talav\UserBundle\Entity\User:
+            algorithm: auto
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

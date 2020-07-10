@@ -1,0 +1,12 @@
+{% extends 'workspace/admin/base.html.twig' %}
+
+{% block content %}
+    ID: {{ board.id }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'prodly.form.board.submit'|trans({}, 'form') }}" formnovalidate />
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

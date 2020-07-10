@@ -1,0 +1,30 @@
+parameters:
+  domain: '%env(resolve:PRONY_DOMAIN)%'
+prony:
+  resources:
+    workspace:
+      classes:
+        model: Prony\Entity\Workspace
+    board:
+      classes:
+        model: Prony\Entity\Board
+        manager: Prony\Manager\BoardManager
+        repository: Prony\Repository\BoardRepository
+    tag:
+      classes:
+        model: Prony\Entity\Tag
+        manager: Prony\Manager\TagManager
+    status:
+      classes:
+        model: Prony\Entity\Status
+        manager: Prony\Manager\StatusManager
+    post:
+      classes:
+        model: Prony\Entity\Post
+        repository: Prony\Repository\PostRepository
+        manager: Prony\Manager\PostManager
+    comment:
+      classes:
+        model: Prony\Entity\Comment
+        repository: Prony\Repository\CommentRepository
+        manager: Prony\Manager\CommentManager

@@ -1,0 +1,14 @@
+prony:
+  twig:
+    workspace:
+      table:
+        name: 'Name'
+        domain: 'Domain'
+        links: 'Links'
+      list: 'Workspace list'
+      add: 'Add new workspace'
+      edit: 'Edit'
+      delete: 'Delete'
+      open: 'Open'
+      cancel: 'Cancel'
+      confirm_deleting: 'Are you sure? This action cannot be undone. Enter the name of this workspace below to confirm.'

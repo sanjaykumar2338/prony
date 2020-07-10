@@ -1,0 +1,43 @@
+{% extends 'site/front/base_client.html.twig' %}
+
+{% block content %}
+    {% if workspaces %}
+        {{ 'prony.twig.workspace.list'|trans({}, 'twig') }}
+
+        <table>
+            <thead>
+                <tr>
+                    <td>{{ 'prony.twig.workspace.table.name'|trans({}, 'twig') }}</td>
+                    <td>{{ 'prony.twig.workspace.table.domain'|trans({}, 'twig') }}</td>
+                    <td>{{ 'prony.twig.workspace.table.links'|trans({}, 'twig') }}</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for workspace in workspaces %}
+                    {% set domain = workspace.domain ?: "#{workspace.subdomain}.#{defaultDomain}" %}
+                    <tr>
+                        <td>{{ workspace.name }}</td>
+                        <td>{{ domain }}</td>
+                        <td>
+                            <a href="{{ path('prony_site_front_workspace_edit', {'id': workspace.id}) }}" class="edit">
+                                {{ 'prony.twig.workspace.edit'|trans({}, 'twig') }}
+                            </a>
+                            <a href="{{ path('prony_site_front_workspace_delete', {'id': workspace.id}) }}" class="delete">
+                                {{ 'prony.twig.workspace.delete'|trans({}, 'twig') }}
+                            </a>
+                            <a href="//{{ domain }}" target="_blank">
+                                {{ 'prony.twig.workspace.open'|trans({}, 'twig') }}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <p>
+        <a href="{{ path('prony_site_front_workspace_add') }}">
+            {{ 'prony.twig.workspace.add'|trans({}, 'twig') }}
+        </a>
+    </p>
+{% endblock %}

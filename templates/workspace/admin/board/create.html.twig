@@ -1,0 +1,13 @@
+{% extends 'workspace/admin/base.html.twig' %}
+
+{% block content %}
+    <h3>{{ 'prony.form.board.content.create_board'|trans({}, 'form') }}</h3>
+    <p>{{ 'prony.form.board.content.create_description'|trans({}, 'form') }} </p>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'prony.form.board.submit'|trans({}, 'form') }}" formnovalidate />
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'workspace/admin/base.html.twig' %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'prony.form.company.submit'|trans({}, 'form') }}" formnovalidate />
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

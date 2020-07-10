@@ -1,0 +1,26 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Prony\Entity\Vote" table="prony_vote">
+
+        <id name="id" column="id" type="uuid">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Ramsey\Uuid\Doctrine\UuidGenerator"/>
+        </id>
+
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <many-to-one field="createdBy" target-entity="Talav\Component\User\Model\UserInterface">
+            <join-column name="created_by_user_id" />
+            <gedmo:blameable on="create"/>
+        </many-to-one>
+
+        <many-to-one field="post" target-entity="Prony\Entity\Post" inversed-by="votes">
+            <join-column name="post_id" />
+        </many-to-one>
+
+        <unique-constraints>
+            <unique-constraint columns="post_id,created_by_user_id"/>
+        </unique-constraints>
+
+    </entity>
+</doctrine-mapping>

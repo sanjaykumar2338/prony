@@ -1,0 +1,15 @@
+{% extends 'workspace/admin/base.html.twig' %}
+
+{% block content %}
+    <h3>Post list</h3>
+    {% for post in posts %}
+        {{ post.createdAt|date('F j, Y, g:i a') }}<br>
+        {{ post.title }}<br>
+        {{ post.description }}<br><br><br><br><br>
+    {% endfor %}
+
+    <div class="pager">
+        {{ pagerfanta(pager) }}
+    </div>
+{% endblock %}
+

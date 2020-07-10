@@ -1,0 +1,13 @@
+ongr_elasticsearch:
+  indexes:
+    Prony\Search\Document\Post:
+      default: true
+      hosts:
+        - 'localhost:9200'
+      settings:
+        number_of_replicas: 0
+        number_of_shards: 1
+  logger: '%kernel.debug%'
+  profiler: true
+  source_directories:
+    - /src/Prony/Search/Document
